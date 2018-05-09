@@ -51,6 +51,7 @@ class Pelaksanaan extends \yii\db\ActiveRecord
      */
     public function getIdPelaksanaan()
     {
+        // testing aja
         return $this->hasOne(Usulan::className(), ['id_usulan' => 'id_pelaksanaan']);
     }
 
