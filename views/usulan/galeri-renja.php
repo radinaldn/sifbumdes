@@ -1,9 +1,8 @@
 <?php
 use yii\helpers\Html;
-use yii\helpers\Url;
 
 
-$this->title = "Galeri Bukti";
+$this->title = "Galeri Renja";
 ?>
 
 <div class="row">
@@ -16,11 +15,11 @@ $this->title = "Galeri Bukti";
         <div class="col-md-6">
             <div class="card">
                 <div class="header">
-                    <h4 class="title"><?= $data->idPelaksanaan->urusan; ?></h4>
-                    <p class="category"><?= $data->idPelaksanaan->tanggal; ?></p>
+                    <h4 class="title"><?= $data->urusan; ?></h4>
+                    <p class="category"><?= $data->tanggal; ?></p>
                 </div>
                 <div class="content">
-                    <a target="_blank" href="<?= Url::to(['usulan/view?id=']) ?><?= $data->id_pelaksanaan ?>" title="Unduh foto bukti"> <img height="300" src="<?= Yii::$app->getHomeUrl()?>/files/images/<?= $data->bukti ?>"></a>
+                    <a target="_blank" href="<?= Yii::$app->getHomeUrl()?>/files/renja/<?= $data->renja ?>" title="Unduh file renja <?= $data->urusan ?>"><img height="300" src="<?= Yii::$app->getHomeUrl()?>/files/images/files_icon.png"></a>
 
                     <div class="footer">
                         <div class="chart-legend">

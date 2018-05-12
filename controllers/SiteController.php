@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use yii\helpers\Url;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -110,7 +111,7 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            return $this->redirect(Url::to(['home/index']));
         }
         return $this->render('login', [
             'model' => $model,

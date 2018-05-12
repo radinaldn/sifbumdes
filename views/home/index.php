@@ -12,7 +12,7 @@
                         <div class="col-xs-7">
                             <div class="numbers">
                                 <p>Usulan</p>
-                                105
+                                <?= $total_usulan ?>
                             </div>
                         </div>
                     </div>
@@ -37,7 +37,7 @@
                         <div class="col-xs-7">
                             <div class="numbers">
                                 <p>Pelaksanaan</p>
-                                45
+                                <?= $total_usulan ?>
                             </div>
                         </div>
                     </div>
@@ -173,4 +173,6 @@
             </div>
         </div>
     </div>
+
+
 

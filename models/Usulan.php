@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\models\Kec;
 
 /**
  * This is the model class for table "tb_usulan".
@@ -96,4 +97,6 @@ class Usulan extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Keldesa::className(), ['id_keldesa' => 'id_keldesa']);
     }
+
+
 }

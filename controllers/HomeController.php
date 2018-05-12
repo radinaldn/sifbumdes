@@ -9,6 +9,9 @@
 namespace app\controllers;
 
 use yii\web\Controller;
+use app\models\Usulan;
+use app\models\Pelaksanaan;
+
 
 
 class HomeController extends Controller
@@ -24,7 +27,18 @@ class HomeController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $total_usulan = Usulan::find()
+            ->where(['id_kategori'=>\Yii::$app->user->identity->id_kategori])
+            ->count();
+
+        $total_pelaksanaan = Pelaksanaan::find()
+            ->where(['id_kategori'=>\Yii::$app->user->identity->id_kategori])
+            ->count();
+
+        return $this->render('index',[
+            'total_usulan'=>$total_usulan,
+            'total_pelaksanaan'=>$total_pelaksanaan,
+        ]);
     }
 
 

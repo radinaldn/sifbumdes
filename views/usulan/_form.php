@@ -6,6 +6,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use dosamigos\datepicker\DatePicker;
 use kartik\file\FileInput;
+use kartik\depdrop\DepDrop;
+use app\models\Kabkota;
+use yii\helpers\Url;
+
+
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Usulan */
@@ -14,7 +19,8 @@ use kartik\file\FileInput;
 
 <div class="usulan-form">
 
-    <?php $form = ActiveForm::begin(['options' => ['enctype'=>'multipart/form-data']]); ?>
+    <?php $kabkotalist = Kabkota::find()->all();
+    $form = ActiveForm::begin(['options' => ['enctype'=>'multipart/form-data']]); ?>
 
     <?php
     if (Yii::$app->user->identity->id_kategori == -1) {
@@ -25,7 +31,37 @@ use kartik\file\FileInput;
 
     <?= $form->field($model, 'indikator')->textInput(['maxlength' => true]) ?>
 
-    <?=
+        <?php
+//        echo
+//        $form->field($model, 'id_kabkota')->dropDownList(
+//            ArrayHelper::map(Kabkota::find()->all(),'id_kabkota','nama'),
+//            ['id'=>'id_kabkota'])
+        ?>
+
+
+    <?php
+    //echo
+//    $form->field($model, 'id_kec')->widget(DepDrop::classname(), [
+//        'options'=>['id_kec'=>'kec-id'],
+//        'pluginOptions'=>[
+//            'depends'=>['id_kabkota'],
+//            'placeholder'=>'Select...',
+//            'url'=>Url::to(['/usulan/id_kec'])
+//        ]
+//    ]);
+    ?>
+
+    <?php //echo
+//    $form->field($model, 'id_keldesa')->widget(DepDrop::classname(), [
+//        'pluginOptions'=>[
+//            'depends'=>['kabkota-id', 'kec-id'],
+//            'placeholder'=>'Select...',
+//            'url'=>Url::to(['/usulan/id_keldesa'])
+//        ]
+//    ]);
+    ?>
+
+    <?php echo
     $form->field($model, 'id_keldesa')->dropDownList(
         ArrayHelper::map(Keldesa::find()->all(),'id_keldesa','nama'),
         ['prompt'=>'Pilih Kelurahan/Desa']

@@ -142,7 +142,7 @@ CustomAsset::register($this);
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="<?= Url::to(['usulan/galeri-justifikasi']) ?>">
+                                    <a href="<?= Url::to(['usulan/galeri-renja']) ?>">
                                         <i class="ti-image"></i>
                                         <p>Galeri Renja</p>
                                     </a>
@@ -190,25 +190,25 @@ CustomAsset::register($this);
 <!--                                <p>Stats</p>-->
 <!--                            </a>-->
 <!--                        </li>-->
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="ti-bell"></i>
-                                <p class="notification">5</p>
-                                <p>Notifikasi</p>
-                                <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Notification 1</a></li>
-                                <li><a href="#">Notification 2</a></li>
-                                <li><a href="#">Notification 3</a></li>
-                                <li><a href="#">Notification 4</a></li>
-                                <li><a href="#">Another notification</a></li>
-                            </ul>
-                        </li>
+<!--                        <li class="dropdown">-->
+<!--                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">-->
+<!--                                <i class="ti-bell"></i>-->
+<!--                                <p class="notification">5</p>-->
+<!--                                <p>Notifikasi</p>-->
+<!--                                <b class="caret"></b>-->
+<!--                            </a>-->
+<!--                            <ul class="dropdown-menu">-->
+<!--                                <li><a href="#">Notification 1</a></li>-->
+<!--                                <li><a href="#">Notification 2</a></li>-->
+<!--                                <li><a href="#">Notification 3</a></li>-->
+<!--                                <li><a href="#">Notification 4</a></li>-->
+<!--                                <li><a href="#">Another notification</a></li>-->
+<!--                            </ul>-->
+<!--                        </li>-->
                         <li>
-                            <a href="#">
+                            <a href="<?= Url::to(['site/logout']) ?>">
                                 <i class="ti-power-off"></i>
-                                <p>keluar</p>
+                                <p>keluar (<?= Yii::$app->user->identity->nama ?>)</p>
                             </a>
                         </li>
                     </ul>
@@ -256,20 +256,20 @@ CustomAsset::register($this);
 <?php $this->endBody() ?>
 </body>
 </html>
-<!--<script type="text/javascript">-->
-<!--    $(document).ready(function(){-->
-<!---->
-<!--        demo.initChartist();-->
-<!---->
-<!--        $.notify({-->
-<!--            icon: 'ti-face-smile',-->
-<!--            message: "Selamat datang <b>--><?//= Yii::$app->user->identity->nama ?>//</b> - Anda login sebagai Administrator yang dapat mengelola seluruh data."
-//
-//        },{
-//            type: 'success',
-//            timer: 4000
-//        });
-//
-//    });
-//</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        demo.initChartist();
+
+        $.notify({
+            icon: 'ti-face-smile',
+            message: "Selamat datang <b><?= Yii::$app->user->identity->nama ?></b> - Anda login sebagai pegawai <?= Yii::$app->user->identity->idKategori->nama ?>."
+
+        },{
+            type: 'success',
+            timer: 4000
+        });
+
+    });
+</script>
 <?php $this->endPage() ?>

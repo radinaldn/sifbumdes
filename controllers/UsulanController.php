@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Kabkota;
 use Yii;
 use app\models\Usulan;
 use app\models\UsulanSearch;
@@ -10,6 +11,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use yii\helpers\Json;
+use app\models\Kec;
 
 /**
  * UsulanController implements the CRUD actions for Usulan model.
@@ -111,6 +114,58 @@ class UsulanController extends Controller
 
     }
 
+    public function actionId_kec() {
+        $out = [];
+        if (isset($_POST['depdrop_parents'])) {
+            $parents = $_POST['depdrop_parents'];
+            if ($parents != null) {
+                $kabkota_id = $parents[0];
+                $out = self::getKecList($kabkota_id);
+                // the getSubCatList function will query the database based on the
+                // cat_id and return an array like below:
+                // [
+                //    ['id'=>'<sub-cat-id-1>', 'name'=>'<sub-cat-name1>'],
+                //    ['id'=>'<sub-cat_id_2>', 'name'=>'<sub-cat-name2>']
+                // ]
+                echo Json::encode(['output'=>$out, 'selected'=>'']);
+                return;
+            }
+        }
+        echo Json::encode(['output'=>'', 'selected'=>'']);
+    }
+
+
+    public function actionId_keldesa() {
+        $out = [];
+        if (isset($_POST['depdrop_parents'])) {
+            $ids = $_POST['depdrop_parents'];
+            $cat_id = empty($ids[0]) ? null : $ids[0];
+            $subcat_id = empty($ids[1]) ? null : $ids[1];
+            if ($cat_id != null) {
+                $data = self::getProdList($cat_id, $subcat_id);
+                /**
+                 * the getProdList function will query the database based on the
+                 * cat_id and sub_cat_id and return an array like below:
+                 *  [
+                 *      'out'=>[
+                 *          ['id'=>'<prod-id-1>', 'name'=>'<prod-name1>'],
+                 *          ['id'=>'<prod_id_2>', 'name'=>'<prod-name2>']
+                 *       ],
+                 *       'selected'=>'<prod-id-1>'
+                 *  ]
+                 */
+
+                echo Json::encode(['output'=>$data['out'], 'selected'=>$data['selected']]);
+                return;
+            }
+        }
+        echo Json::encode(['output'=>'', 'selected'=>'']);
+    }
+
+    public function getKecList($id_kabkota){
+        return Kec::find()->where(['id_kabkota'=>$id_kabkota])->all();
+    }
+
     /**
      * Updates an existing Usulan model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -121,7 +176,27 @@ class UsulanController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $data = Yii::$app->request->post();
+        $model->justifikasi = UploadedFile::getInstance($model, 'justifikasi');
+        $model->renja = UploadedFile::getInstance($model, 'renja');
+
+        if ($model->justifikasi != NULL) $data['Usulan']['justifikasi'] = $model->justifikasi;
+        if ($model->justifikasi == NULL) $data['Usulan']['justifikasi'] = null;
+
+        if ($model->renja!= NULL) $data['Usulan']['renja'] = $model->renja;
+        if ($model->renja== NULL) $data['Usulan']['renja'] = null;
+
+
+
+        if ($model->load($data) && $model->save()) {
+            if ($model->justifikasi!=NULL){
+                $model->justifikasi->saveAs(Yii::$app->basePath.'/web/files/justifikasi/'. $model->justifikasi->baseName. '.' . $model->justifikasi->extension);
+            }
+
+            if ($model->renja!=NULL){
+                $model->renja->saveAs(Yii::$app->basePath.'/web/files/renja/'. $model->renja->baseName. '.' . $model->renja->extension);
+            }
+
             return $this->redirect(['view', 'id' => $model->id_usulan]);
         } else {
             return $this->render('update', [
@@ -141,6 +216,32 @@ class UsulanController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionGaleriRenja(){
+        // action galeri justifikasi
+
+        $model = Usulan::find()
+            ->where(['id_kategori'=>Yii::$app->user->identity->id_kategori])
+            ->orderBy(["id_usulan" => SORT_DESC])
+            ->all();
+
+        return $this->render('galeri-renja', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionGaleriJustifikasi(){
+        // action galeri justifikasi
+
+        $model = Usulan::find()
+            ->where(['id_kategori'=>Yii::$app->user->identity->id_kategori])
+            ->orderBy(["id_usulan" => SORT_DESC])
+            ->all();
+
+        return $this->render('galeri-justifikasi', [
+            'model' => $model,
+        ]);
     }
 
     /**

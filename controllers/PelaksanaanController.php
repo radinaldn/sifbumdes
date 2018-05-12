@@ -115,8 +115,20 @@ class PelaksanaanController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $model->id_pelaksanaan = $id;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $data = Yii::$app->request->post();
+        $model->bukti = UploadedFile::getInstance($model, 'bukti');
+
+        if ($model->bukti != NULL) $data['Pelaksanaan']['bukti'] = $model->bukti;
+        if ($model->bukti == NULL) $data['Pelaksanaan']['bukti'] = null;
+
+        if ($model->load($data) && $model->save()) {
+
+            if ($model->bukti!=NULL){
+                $model->bukti->saveAs(Yii::$app->basePath.'/web/files/images/'. $model->bukti->baseName. '.' . $model->bukti->extension);
+            }
+
             return $this->redirect(['view', 'id' => $model->id_pelaksanaan]);
         } else {
             return $this->render('update', [
@@ -142,6 +154,7 @@ class PelaksanaanController extends Controller
         // action galeri justifikasi
 
         $model = Pelaksanaan::find()
+            ->where(['id_kategori'=>Yii::$app->user->identity->id_kategori])
             ->orderBy(["id_pelaksanaan" => SORT_DESC])
             ->all();
 
