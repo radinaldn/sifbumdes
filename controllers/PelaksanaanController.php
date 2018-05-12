@@ -10,6 +10,7 @@ use app\models\PelaksanaanSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * PelaksanaanController implements the CRUD actions for Pelaksanaan model.
@@ -40,7 +41,8 @@ class PelaksanaanController extends Controller
         $searchModel = new PelaksanaanSearch();
 
 
-        $query = Pelaksanaan::find()->where(['id_kategori' => Yii::$app->user->identity->id_kategori]);
+        $query = Pelaksanaan::find()->where(['id_kategori' => Yii::$app->user->identity->id_kategori])->orderBy(['id_pelaksanaan'=>SORT_DESC]);
+        //$query = Usulan::find()->all();
         //$query = Usulan::find()->joinWith('tbPelaksanaan')->all();
 
 
@@ -75,10 +77,23 @@ class PelaksanaanController extends Controller
      */
     public function actionCreate()
     {
+
         $model = new Pelaksanaan();
+
+        $data = Yii::$app->request->post();
+        $model->bukti = UploadedFile::getInstance($model, 'bukti');
+
+        if ($model->bukti != NULL) $data['Pelaksanaan']['bukti'] = $model->bukti;
+        if ($model->bukti == NULL) $data['Pelaksanaan']['bukti'] = null;
+
         $model->id_kategori = Yii::$app->user->identity->id_kategori;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load($data) && $model->save()) {
+
+            if ($model->bukti!=NULL){
+                $model->bukti->saveAs(Yii::$app->basePath.'/web/files/images/'. $model->bukti->baseName. '.' . $model->bukti->extension);
+            }
+
             $usulan = Usulan::findOne($model->id_pelaksanaan);
             $usulan->status = "disetujui";
             $usulan->save(false);

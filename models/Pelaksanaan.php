@@ -28,9 +28,9 @@ class Pelaksanaan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_pelaksanaan', 'bukti'], 'required'],
-            [['id_pelaksanaan'], 'integer'],
-            [['bukti'], 'string', 'max' => 255],
+            [['id_pelaksanaan', 'id_kategori'], 'required'],
+            [['id_pelaksanaan','id_kategori'], 'integer'],
+            [['bukti'], 'file','extensions' => 'png, jpg, jpeg, gif', 'maxFiles' => 1, 'skipOnEmpty' => true, 'on' => 'update-photo-upload'],
             [['id_pelaksanaan'], 'exist', 'skipOnError' => true, 'targetClass' => Usulan::className(), 'targetAttribute' => ['id_pelaksanaan' => 'id_usulan']],
         ];
     }

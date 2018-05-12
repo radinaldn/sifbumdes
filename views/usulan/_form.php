@@ -5,6 +5,7 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use dosamigos\datepicker\DatePicker;
+use kartik\file\FileInput;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Usulan */
@@ -13,7 +14,7 @@ use dosamigos\datepicker\DatePicker;
 
 <div class="usulan-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype'=>'multipart/form-data']]); ?>
 
     <?php
     if (Yii::$app->user->identity->id_kategori == -1) {
@@ -37,9 +38,11 @@ use dosamigos\datepicker\DatePicker;
 
     <?= $form->field($model, 'sumber')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'justifikasi')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'justifikasi')->widget(FileInput::className(),[
+    ]) ?>
 
-    <?= $form->field($model, 'renja')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'renja')->widget(FileInput::className(),[
+    ]) ?>
 
     <?= $form->field($model, 'tanggal')->widget(
         DatePicker::className(), [

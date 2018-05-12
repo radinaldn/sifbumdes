@@ -40,12 +40,13 @@ class Usulan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_kategori', 'urusan', 'indikator', 'id_keldesa', 'target', 'kebutuhan', 'sumber', 'justifikasi', 'renja', 'status', 'tanggal'], 'required'],
+            [['id_kategori', 'urusan', 'indikator', 'id_keldesa', 'target', 'kebutuhan', 'sumber', 'status', 'tanggal'], 'required'],
             [['id_kategori', 'id_keldesa'], 'integer'],
             [['tanggal'], 'safe'],
-            [['urusan', 'indikator', 'justifikasi', 'renja', 'status'], 'string', 'max' => 255],
+            [['urusan', 'indikator', 'status'], 'string', 'max' => 255],
             [['target', 'kebutuhan'], 'string', 'max' => 100],
             [['sumber'], 'string', 'max' => 20],
+            [['justifikasi','renja'], 'file','extensions' => 'docx, pdf, txt, odt', 'maxFiles' => 1, 'skipOnEmpty' => true, 'on' => 'update-photo-upload'],
             [['id_kategori'], 'exist', 'skipOnError' => true, 'targetClass' => Kategori::className(), 'targetAttribute' => ['id_kategori' => 'id_kategori']],
             [['id_keldesa'], 'exist', 'skipOnError' => true, 'targetClass' => Keldesa::className(), 'targetAttribute' => ['id_keldesa' => 'id_keldesa']],
         ];

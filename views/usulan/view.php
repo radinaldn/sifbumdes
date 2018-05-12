@@ -38,8 +38,26 @@ $this->params['breadcrumbs'][] = $this->title;
             'target',
             'kebutuhan',
             'sumber',
-            'justifikasi',
-            'renja',
+            //'justifikasi',
+            [
+                'format'=>'html',
+                'attribute'=>'text',
+                'label'=>'justifikasi',
+                'value'=>function($data){
+
+                            return Html::decode(Html::decode('<a title="unduh file justifikasi" href="'.Yii::$app->getHomeUrl().'files/justifikasi/'.$data->justifikasi.'"><span class="label label-info"><i class="ti-download"></i> '.$data->justifikasi.'</span></a>'));
+                },
+            ],
+            //'renja',
+            [
+                'format'=>'html',
+                'attribute'=>'text',
+                'label'=>'renja',
+                'value'=>function($data){
+
+                    return Html::decode(Html::decode('<a title="unduh file renja" href="'.Yii::$app->getHomeUrl().'files/renja/'.$data->renja.'"><span class="label label-info"><i class="ti-download"></i> '.$data->renja.'</span></a>'));
+                },
+            ],
             'status',
             'tanggal',
         ],

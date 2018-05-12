@@ -9,6 +9,7 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * UsulanController implements the CRUD actions for Usulan model.
@@ -39,7 +40,7 @@ class UsulanController extends Controller
         $searchModel = new UsulanSearch();
 
 
-        $query = Usulan::find()->where(['id_kategori' => Yii::$app->user->identity->id_kategori]);
+        $query = Usulan::find()->where(['id_kategori' => Yii::$app->user->identity->id_kategori])->orderBy(['id_usulan'=>SORT_DESC]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query
@@ -71,13 +72,33 @@ class UsulanController extends Controller
     public function actionCreate()
     {
         $model = new Usulan();
+
+        $data = Yii::$app->request->post();
+        $model->justifikasi = UploadedFile::getInstance($model, 'justifikasi');
+        $model->renja = UploadedFile::getInstance($model, 'renja');
+
+        if ($model->justifikasi != NULL) $data['Usulan']['justifikasi'] = $model->justifikasi;
+        if ($model->justifikasi == NULL) $data['Usulan']['justifikasi'] = null;
+
+        if ($model->renja!= NULL) $data['Usulan']['renja'] = $model->renja;
+        if ($model->renja== NULL) $data['Usulan']['renja'] = null;
+
         $model->status = "belum disetujui";
 
         if (Yii::$app->user->identity->id_kategori > 0) {
             $model->id_kategori = Yii::$app->user->identity->id_kategori;
         }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load($data) && $model->save()) {
+            if ($model->justifikasi!=NULL){
+                $model->justifikasi->saveAs(Yii::$app->basePath.'/web/files/justifikasi/'. $model->justifikasi->baseName. '.' . $model->justifikasi->extension);
+            }
+
+            if ($model->renja!=NULL){
+                $model->renja->saveAs(Yii::$app->basePath.'/web/files/renja/'. $model->renja->baseName. '.' . $model->renja->extension);
+            }
+
+
             return $this->redirect(['view', 'id' => $model->id_usulan]);
         } else {
             return $this->render('create', [
