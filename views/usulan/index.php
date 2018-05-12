@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 use fedemotta\datatables\DataTables;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\UsulanSearch */
@@ -44,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'label'=>'Status',
                     'value'=>function($data){
                         if($data->status == "disetujui"){
-                            return Html::decode(Html::decode('<span class="label label-success"><i class="ti-check"></i> '.$data->status.'</span>'));
+                            return Html::decode(Html::decode('<a title="Lihat pelaksanaan" href="'.Url::to(['pelaksanaan/view?id=']).$data->id_usulan.'"><span class="label label-success"><i class="ti-check"></i> '.$data->status.'</span></a>'));
                         } else if ($data->status == 'belum disetujui'){
                             return Html::decode(Html::decode('<span class="label label-warning"><i class="ti-close"></i> '.$data->status.'</span>'));
                         }

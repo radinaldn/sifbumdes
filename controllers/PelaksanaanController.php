@@ -141,7 +141,9 @@ class PelaksanaanController extends Controller
     public function actionGaleriBukti(){
         // action galeri justifikasi
 
-        $model = Pelaksanaan::find()->all();
+        $model = Pelaksanaan::find()
+            ->orderBy(["id_pelaksanaan" => SORT_DESC])
+            ->all();
 
         return $this->render('galeri-bukti', [
             'model' => $model,
