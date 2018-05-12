@@ -1,5 +1,6 @@
 <?php
 
+use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -12,6 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pelaksanaan-view">
 
+    <a href="<?= Url::to(['pelaksanaan/index']) ?>"><button class="btn btn-success"><i class="ti-back-left"></i> Kembali</button></a>
     <h1>Pelaksanaan #<?= Html::encode($this->title) ?></h1>
 
     <p>

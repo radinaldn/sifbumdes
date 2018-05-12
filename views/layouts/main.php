@@ -9,6 +9,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\CustomAsset;
+use yii\helpers\Url;
 
 CustomAsset::register($this);
 ?>
@@ -44,51 +45,52 @@ CustomAsset::register($this);
                 </a>
             </div>
 
+            <?php if(Yii::$app->user->identity->id_kategori == -1) { ?>
             <ul class="nav">
                 <li class="active">
-                    <a href="home">
+                    <a href="<?= Url::to(['home/index']) ?>">
                         <i class="ti-panel"></i>
                         <p>Halaman Utama</p>
                     </a>
                 </li>
                 <li>
-                    <a href="usulan">
+                    <a href="<?= Url::to(['usulan/index']) ?>">
                         <i class="ti-pencil"></i>
                         <p>Usulan</p>
                     </a>
                 </li>
                 <li>
-                    <a href="pelaksanaan">
+                    <a href="<?= Url::to(['pelaksanaan/index']) ?>">
                         <i class="ti-view-list-alt"></i>
                         <p>Pelaksanaan</p>
                     </a>
                 </li>
                 <li>
-                    <a href="kategori">
+                    <a href="<?= Url::to(['kategori/index']) ?>">
                         <i class="ti-text"></i>
                         <p>Kategori</p>
                     </a>
                 </li>
                 <li>
-                    <a href="user">
+                    <a href="<?= Url::to(['pengguna/index']) ?>">
                         <i class="ti-user"></i>
                         <p>Pengguna</p>
                     </a>
                 </li>
                 <li>
-                    <a href="user">
+                    <a href="<?= Url::to(['usulan/galeri-renja']) ?>">
                         <i class="ti-image"></i>
                         <p>Galeri Renja</p>
                     </a>
                 </li>
                 <li>
-                    <a href="user">
+                    <a href="<?= Url::to(['usulan/galeri-justifikasi']) ?>">
                         <i class="ti-image"></i>
                         <p>Galeri Justifikasi</p>
                     </a>
                 </li>
                 <li>
-                    <a href="user">
+                    <a href="<?= Url::to(['pelaksanaan/galeri-bukti']) ?>">
                         <i class="ti-image"></i>
                         <p>Galeri Bukti</p>
                     </a>
@@ -118,6 +120,53 @@ CustomAsset::register($this);
                     </a>
                 </li>
             </ul>
+            <?php } else { ?>
+                <?php if(Yii::$app->user->identity->id_kategori > 0) ?>
+                            <ul class="nav">
+                                <li class="active">
+                                    <a href="<?= Url::to(['home/index']) ?>">
+                                        <i class="ti-panel"></i>
+                                        <p>Halaman Utama</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="<?= Url::to(['usulan/index']) ?>">
+                                        <i class="ti-pencil"></i>
+                                        <p>Usulan</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="<?= Url::to(['pelaksanaan/index']) ?>">
+                                        <i class="ti-view-list-alt"></i>
+                                        <p>Pelaksanaan</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="<?= Url::to(['usulan/galeri-justifikasi']) ?>">
+                                        <i class="ti-image"></i>
+                                        <p>Galeri Renja</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="<?= Url::to(['usulan/galeri-justifikasi']) ?>">
+                                        <i class="ti-image"></i>
+                                        <p>Galeri Justifikasi</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="<?= Url::to(['pelaksanaan/galeri-bukti']) ?>">
+                                        <i class="ti-image"></i>
+                                        <p>Galeri Bukti</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="<?= Url::to(['site/logout']) ?>">
+                                        <i class="ti-power-off"></i>
+                                        <p>Keluar</p>
+                                    </a>
+                                </li>
+                            </ul>
+            <?php } ?>
         </div>
     </div>
 
@@ -131,7 +180,7 @@ CustomAsset::register($this);
                         <span class="icon-bar bar2"></span>
                         <span class="icon-bar bar3"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Navigasi Administrator</a>
+                    <a class="navbar-brand" href="#">Navigasi <?= Yii::$app->user->identity->idKategori->nama ?></a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
@@ -207,20 +256,20 @@ CustomAsset::register($this);
 <?php $this->endBody() ?>
 </body>
 </html>
-<script type="text/javascript">
-    $(document).ready(function(){
-
-        demo.initChartist();
-
-        $.notify({
-            icon: 'ti-face-smile',
-            message: "Selamat datang di <b><?= Yii::$app->name ?></b> - Anda login sebagai Administrator yang dapat mengelola seluruh data."
-
-        },{
-            type: 'success',
-            timer: 4000
-        });
-
-    });
-</script>
+<!--<script type="text/javascript">-->
+<!--    $(document).ready(function(){-->
+<!---->
+<!--        demo.initChartist();-->
+<!---->
+<!--        $.notify({-->
+<!--            icon: 'ti-face-smile',-->
+<!--            message: "Selamat datang <b>--><?//= Yii::$app->user->identity->nama ?>//</b> - Anda login sebagai Administrator yang dapat mengelola seluruh data."
+//
+//        },{
+//            type: 'success',
+//            timer: 4000
+//        });
+//
+//    });
+//</script>
 <?php $this->endPage() ?>

@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use yii\data\ActiveDataProvider;
+use app\models\Usulan;
 use Yii;
 use app\models\Pelaksanaan;
 use app\models\PelaksanaanSearch;
@@ -36,13 +38,21 @@ class PelaksanaanController extends Controller
     public function actionIndex()
     {
         $searchModel = new PelaksanaanSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $model = Pelaksanaan::find()->all();
+
+
+        $query = Pelaksanaan::find()->where(['id_kategori' => Yii::$app->user->identity->id_kategori]);
+        //$query = Usulan::find()->joinWith('tbPelaksanaan')->all();
+
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query
+        ]);
+
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
+            //'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'model'=>$model,
+
         ]);
     }
 
@@ -66,8 +76,13 @@ class PelaksanaanController extends Controller
     public function actionCreate()
     {
         $model = new Pelaksanaan();
+        $model->id_kategori = Yii::$app->user->identity->id_kategori;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $usulan = Usulan::findOne($model->id_pelaksanaan);
+            $usulan->status = "disetujui";
+            $usulan->save(false);
+
             return $this->redirect(['view', 'id' => $model->id_pelaksanaan]);
         } else {
             return $this->render('create', [
@@ -106,6 +121,16 @@ class PelaksanaanController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionGaleriBukti(){
+        // action galeri justifikasi
+
+        $model = Pelaksanaan::find()->all();
+
+        return $this->render('galeri-bukti', [
+            'model' => $model,
+            ]);
     }
 
     /**

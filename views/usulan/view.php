@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Usulan */
@@ -12,6 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="usulan-view">
 
+    <a href="<?= Url::to(['usulan/index']) ?>"><button class="btn btn-success"><i class="ti-back-left"></i> Kembali</button></a>
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
@@ -29,13 +31,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id_usulan',
-            'idKategori.nama',
+            'id_kategori',
             'urusan',
             'indikator',
-            'idKeldesa.nama',
+            'id_keldesa',
             'target',
             'kebutuhan',
             'sumber',
+            'justifikasi',
+            'renja',
             'status',
             'tanggal',
         ],

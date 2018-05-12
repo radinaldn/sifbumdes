@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\Usulan;
 use app\models\UsulanSearch;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -36,10 +37,16 @@ class UsulanController extends Controller
     public function actionIndex()
     {
         $searchModel = new UsulanSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+
+        $query = Usulan::find()->where(['id_kategori' => Yii::$app->user->identity->id_kategori]);
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query
+        ]);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
+           // 'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
@@ -64,8 +71,11 @@ class UsulanController extends Controller
     public function actionCreate()
     {
         $model = new Usulan();
-
         $model->status = "belum disetujui";
+
+        if (Yii::$app->user->identity->id_kategori > 0) {
+            $model->id_kategori = Yii::$app->user->identity->id_kategori;
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id_usulan]);
@@ -74,6 +84,10 @@ class UsulanController extends Controller
                 'model' => $model,
             ]);
         }
+    }
+
+    public function actionAdmin(){
+
     }
 
     /**

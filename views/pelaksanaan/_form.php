@@ -19,6 +19,7 @@ use yii\helpers\ArrayHelper;
     <?= $form->field($model, 'id_pelaksanaan')->dropDownList(
         ArrayHelper::map(Usulan::find()
             ->where(['not in','status','disetujui'])
+            ->andWhere(['id_kategori'=>Yii::$app->user->identity->id_kategori])
             ->all(), 'id_usulan', 'urusan'),
         ['prompt'=>'Pilih usulan']
     ) ?>

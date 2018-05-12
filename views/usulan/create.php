@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Usulan */
 
-$this->title = 'Create Usulan';
+$this->title = 'Ajukan Usulan';
 $this->params['breadcrumbs'][] = ['label' => 'Usulans', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

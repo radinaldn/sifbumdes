@@ -15,12 +15,14 @@ use Yii;
  * @property string $target
  * @property string $kebutuhan
  * @property string $sumber
+ * @property string $justifikasi
+ * @property string $renja
  * @property string $status
  * @property string $tanggal
  *
- * @property Pelaksanaan[] $Pelaksanaans
- * @property Kategori $idKategori
- * @property Keldesa $idKeldesa
+ * @property TbPelaksanaan $tbPelaksanaan
+ * @property TbKategori $idKategori
+ * @property TbKeldesa $idKeldesa
  */
 class Usulan extends \yii\db\ActiveRecord
 {
@@ -38,10 +40,10 @@ class Usulan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_kategori', 'urusan', 'indikator', 'id_keldesa', 'target', 'kebutuhan', 'sumber', 'status', 'tanggal'], 'required'],
+            [['id_kategori', 'urusan', 'indikator', 'id_keldesa', 'target', 'kebutuhan', 'sumber', 'justifikasi', 'renja', 'status', 'tanggal'], 'required'],
             [['id_kategori', 'id_keldesa'], 'integer'],
             [['tanggal'], 'safe'],
-            [['urusan', 'indikator', 'status'], 'string', 'max' => 255],
+            [['urusan', 'indikator', 'justifikasi', 'renja', 'status'], 'string', 'max' => 255],
             [['target', 'kebutuhan'], 'string', 'max' => 100],
             [['sumber'], 'string', 'max' => 20],
             [['id_kategori'], 'exist', 'skipOnError' => true, 'targetClass' => Kategori::className(), 'targetAttribute' => ['id_kategori' => 'id_kategori']],
@@ -56,13 +58,15 @@ class Usulan extends \yii\db\ActiveRecord
     {
         return [
             'id_usulan' => 'Id Usulan',
-            'id_kategori' => 'Kategori',
+            'id_kategori' => 'Id Kategori',
             'urusan' => 'Urusan',
             'indikator' => 'Indikator',
-            'id_keldesa' => 'Kelurahan/Desa',
+            'id_keldesa' => 'Id Keldesa',
             'target' => 'Target',
             'kebutuhan' => 'Kebutuhan',
             'sumber' => 'Sumber',
+            'justifikasi' => 'Justifikasi',
+            'renja' => 'Renja',
             'status' => 'Status',
             'tanggal' => 'Tanggal',
         ];
@@ -71,9 +75,9 @@ class Usulan extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPelaksanaans()
+    public function getTbPelaksanaan()
     {
-        return $this->hasMany(Pelaksanaan::className(), ['id_pelaksanaan' => 'id_usulan']);
+        return $this->hasOne(Pelaksanaan::className(), ['id_pelaksanaan' => 'id_usulan']);
     }
 
     /**

@@ -21,7 +21,6 @@ class CustomAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
     'css/site.css',
-    'custom/assets/css/bootstrap.min.css',
         'custom/assets/css/animate.min.css',
         'custom/assets/css/paper-dashboard.css',
         'custom/assets/css/demo.css',
@@ -31,8 +30,6 @@ class CustomAsset extends AssetBundle
 
     ];
     public $js = [
-    'custom/assets/js/jquery-1.10.2.js',
-        'custom/assets/js/bootstrap.min.js',
         'custom/assets/js/bootstrap-checkbox-radio.js',
         'custom/assets/js/chartist.min.js',
         'custom/assets/js/bootstrap-notify.js',
@@ -43,6 +40,8 @@ class CustomAsset extends AssetBundle
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
+        'yii\web\JqueryAsset',
+        'fedemotta\datatables\DataTablesAsset',
     ];
 }
 ?>

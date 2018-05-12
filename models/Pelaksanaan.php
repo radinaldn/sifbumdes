@@ -59,4 +59,15 @@ class Pelaksanaan extends \yii\db\ActiveRecord
     {
         return Yii::$app->request->BaseUrl.'files/images/'.$this->bukti;
     }
+
+    public static function getPelaksanaanForCurrentUser(){
+        $pelaksanaans = Pelaksanaan::find()->joinWith('usulan')->where(['IdPelaksanaan.id_kategori'=>Yii::$app->user->identity->id_kategori]);
+        echo '<pre>';
+        var_dump($pelaksanaans);
+        exit();
+        $usulans = Usulan::find()->where(['id_kategori' => Yii::$app->user->identity->id_kategori])->viaTable(Pelaksanaan::tableName(),['id_pelaksanaan'=>'id_usulan']);
+
+
+        return $pelaksanaans;
+    }
 }

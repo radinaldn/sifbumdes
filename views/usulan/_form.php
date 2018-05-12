@@ -1,11 +1,10 @@
 <?php
 
+use app\models\Keldesa;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use yii\helpers\ArrayHelper;
-use app\models\Kategori;
-use app\models\Keldesa;
-
+use dosamigos\datepicker\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Usulan */
@@ -16,24 +15,21 @@ use app\models\Keldesa;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?php // echo $form->field($model, 'id_kategori')->textInput() ?>
-
-    <?= $form->field($model, 'id_kategori')->dropDownList(
-            ArrayHelper::map(Kategori::find()
-                ->where(['not in','id_kategori','-1'])
-                ->all(), 'id_kategori', 'nama'),
-            ['prompt'=>'Pilih kategori']
-    ) ?>
+    <?php
+    if (Yii::$app->user->identity->id_kategori == -1) {
+        echo $form->field($model, 'id_kategori')->textInput();
+    }?>
 
     <?= $form->field($model, 'urusan')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'indikator')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'id_keldesa')->dropDownList(
-        ArrayHelper::map(Keldesa::find()
-            ->all(), 'id_keldesa', 'nama'),
-        ['prompt'=>'Pilih kelurahan/desa']
-    ) ?>
+    <?=
+    $form->field($model, 'id_keldesa')->dropDownList(
+        ArrayHelper::map(Keldesa::find()->all(),'id_keldesa','nama'),
+        ['prompt'=>'Pilih Kelurahan/Desa']
+    )
+    ?>
 
     <?= $form->field($model, 'target')->textInput(['maxlength' => true]) ?>
 
@@ -41,9 +37,21 @@ use app\models\Keldesa;
 
     <?= $form->field($model, 'sumber')->textInput(['maxlength' => true]) ?>
 
-    <?php // echo $form->field($model, 'status')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'justifikasi')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'tanggal')->textInput() ?>
+    <?= $form->field($model, 'renja')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'tanggal')->widget(
+        DatePicker::className(), [
+        // inline too, not bad
+        'inline' => true,
+        // modify template for custom rendering
+        'template' => '<div class="well well-sm" style="background-color: #fff; width:250px">{input}</div>',
+        'clientOptions' => [
+            'autoclose' => true,
+            'format' => 'yyyy-mm-dd'
+        ]
+    ]);?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

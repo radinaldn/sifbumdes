@@ -19,7 +19,7 @@ class UsulanSearch extends Usulan
     {
         return [
             [['id_usulan', 'id_kategori', 'id_keldesa'], 'integer'],
-            [['urusan', 'indikator', 'target', 'kebutuhan', 'sumber', 'status', 'tanggal'], 'safe'],
+            [['urusan', 'indikator', 'target', 'kebutuhan', 'sumber', 'justifikasi', 'renja', 'status', 'tanggal'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class UsulanSearch extends Usulan
      */
     public function search($params)
     {
-        $query = Usulan::find()->orderBy(['id_usulan'=>SORT_DESC]);
+        $query = Usulan::find();
 
         // add conditions that should always apply here
 
@@ -70,6 +70,8 @@ class UsulanSearch extends Usulan
             ->andFilterWhere(['like', 'target', $this->target])
             ->andFilterWhere(['like', 'kebutuhan', $this->kebutuhan])
             ->andFilterWhere(['like', 'sumber', $this->sumber])
+            ->andFilterWhere(['like', 'justifikasi', $this->justifikasi])
+            ->andFilterWhere(['like', 'renja', $this->renja])
             ->andFilterWhere(['like', 'status', $this->status]);
 
         return $dataProvider;
