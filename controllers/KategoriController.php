@@ -8,6 +8,7 @@ use app\models\KategoriSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\data\ActiveDataProvider;
 
 /**
  * KategoriController implements the CRUD actions for Kategori model.
@@ -35,11 +36,16 @@ class KategoriController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new KategoriSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        //$searchModel = new KategoriSearch();
+        //$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $query = Kategori::find()->where(['not in','id_kategori',[-1]]);
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query
+        ]);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }

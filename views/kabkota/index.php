@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use fedemotta\datatables\DataTables;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\KabkotaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -16,9 +17,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Kabkota', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Tambah Kabupaten/Kota', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-<?php Pjax::begin(); ?>    <?= GridView::widget([
+<?php Pjax::begin(); ?>    <?= DataTables::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
@@ -26,8 +27,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id_kabkota',
             'nama',
-            'lat',
-            'lng',
+//            'lat',
+//            'lng',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

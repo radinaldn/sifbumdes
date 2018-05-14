@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Kabkota;
+use app\models\Kategori;
 use Yii;
 use app\models\Usulan;
 use app\models\UsulanSearch;
@@ -43,15 +44,22 @@ class UsulanController extends Controller
         $searchModel = new UsulanSearch();
 
 
-        $query = Usulan::find()->where(['id_kategori' => Yii::$app->user->identity->id_kategori])->orderBy(['id_usulan'=>SORT_DESC]);
+        if (Yii::$app->user->identity->id_kategori>0) {
+            $query = Usulan::find()->where(['id_kategori' => Yii::$app->user->identity->id_kategori])->orderBy(['id_usulan'=>SORT_DESC]);
+        } else if (Yii::$app->user->identity->id_kategori == -1) {
+            $query = Usulan::find()->orderBy(['id_usulan'=>SORT_DESC]);
+        }
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query
         ]);
 
+        $kategoris = Kategori::find()->where(["not in", "id_kategori", [-1]])->all();
+
         return $this->render('index', [
            // 'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'kategoris' => $kategoris,
         ]);
     }
 
@@ -112,6 +120,13 @@ class UsulanController extends Controller
 
     public function actionAdmin(){
 
+        $kategoris = Kategori::find()->where(["not in", "id_kategori", [-1]])->all();
+
+        return $this->render('admin', [
+            // 'searchModel' => $searchModel,
+            //'dataProvider' => $dataProvider,
+            'kategoris' => $kategoris,
+        ]);
     }
 
     public function actionId_kec() {
@@ -221,10 +236,16 @@ class UsulanController extends Controller
     public function actionGaleriRenja(){
         // action galeri justifikasi
 
-        $model = Usulan::find()
-            ->where(['id_kategori'=>Yii::$app->user->identity->id_kategori])
-            ->orderBy(["id_usulan" => SORT_DESC])
-            ->all();
+        if (Yii::$app->user->identity->id_kategori > 0){
+            $model = Usulan::find()
+                ->where(['id_kategori'=>Yii::$app->user->identity->id_kategori])
+                ->orderBy(["id_usulan" => SORT_DESC])
+                ->all();
+        } else if (Yii::$app->user->identity->id_kategori == -1){
+            $model = Usulan::find()
+                ->orderBy(["id_usulan" => SORT_DESC])
+                ->all();
+        }
 
         return $this->render('galeri-renja', [
             'model' => $model,
@@ -234,10 +255,16 @@ class UsulanController extends Controller
     public function actionGaleriJustifikasi(){
         // action galeri justifikasi
 
-        $model = Usulan::find()
-            ->where(['id_kategori'=>Yii::$app->user->identity->id_kategori])
-            ->orderBy(["id_usulan" => SORT_DESC])
-            ->all();
+        if (Yii::$app->user->identity->id_kategori > 0){
+            $model = Usulan::find()
+                ->where(['id_kategori'=>Yii::$app->user->identity->id_kategori])
+                ->orderBy(["id_usulan" => SORT_DESC])
+                ->all();
+        } else if (Yii::$app->user->identity->id_kategori == -1){
+            $model = Usulan::find()
+                ->orderBy(["id_usulan" => SORT_DESC])
+                ->all();
+        }
 
         return $this->render('galeri-justifikasi', [
             'model' => $model,

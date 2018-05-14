@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b8067a74a17b8a06a30b895f9b0dded6",
+    "content-hash": "d28ca9d2846cb15729defc9fd80deb6a",
     "packages": [
         {
             "name": "2amigos/yii2-date-picker-widget",
@@ -110,6 +110,22 @@
             "license": [
                 "Apache-2.0"
             ]
+        },
+        {
+            "name": "bower-asset/chartist",
+            "version": "v0.11.0",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:gionkunz/chartist-js.git",
+                "reference": "e2ee06153f099b548530ef517a247fc0dc978cb8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/gionkunz/chartist-js/zipball/e2ee06153f099b548530ef517a247fc0dc978cb8",
+                "reference": "e2ee06153f099b548530ef517a247fc0dc978cb8",
+                "shasum": null
+            },
+            "type": "bower-asset"
         },
         {
             "name": "bower-asset/datatables",
@@ -770,6 +786,53 @@
                 "yii2"
             ],
             "time": "2018-02-24T05:28:25+00:00"
+        },
+        {
+            "name": "okeanos/yii2-chartist",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Okeanos/yii2-chartist.git",
+                "reference": "b9f79b63ac84a75c198552d2abdbff3031947c7b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Okeanos/yii2-chartist/zipball/b9f79b63ac84a75c198552d2abdbff3031947c7b",
+                "reference": "b9f79b63ac84a75c198552d2abdbff3031947c7b",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/chartist": "*",
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "okeanos\\chartist\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Nikolas Grottendieck",
+                    "email": "github@nikolasgrottendieck.com",
+                    "homepage": "http://www.nikolasgrottendieck.com/"
+                }
+            ],
+            "description": "Chartist.js extension for Yii2 Framework.",
+            "keywords": [
+                "charting",
+                "chartist",
+                "charts",
+                "extension",
+                "plot",
+                "responsive charts",
+                "yii2"
+            ],
+            "time": "2015-02-28T19:05:33+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",

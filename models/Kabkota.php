@@ -43,7 +43,7 @@ class Kabkota extends \yii\db\ActiveRecord
     {
         return [
             'id_kabkota' => 'Id Kabkota',
-            'nama' => 'Nama',
+            'nama' => 'Kabupaten/Kota',
             'lat' => 'Lat',
             'lng' => 'Lng',
         ];

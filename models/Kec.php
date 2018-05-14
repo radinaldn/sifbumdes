@@ -44,7 +44,7 @@ class Kec extends \yii\db\ActiveRecord
     {
         return [
             'id_kec' => 'Id Kec',
-            'nama' => 'Nama',
+            'nama' => 'Kecamatan',
             'id_kabkota' => 'Id Kabkota',
         ];
     }

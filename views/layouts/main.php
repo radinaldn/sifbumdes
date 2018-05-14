@@ -45,6 +45,7 @@ CustomAsset::register($this);
                 </a>
             </div>
 
+            <!--            // if admin-->
             <?php if(Yii::$app->user->identity->id_kategori == -1) { ?>
             <ul class="nav">
                 <li class="active">
@@ -54,13 +55,13 @@ CustomAsset::register($this);
                     </a>
                 </li>
                 <li>
-                    <a href="<?= Url::to(['usulan/index']) ?>">
+                    <a href="<?= Url::to(['usulan/admin']) ?>">
                         <i class="ti-pencil"></i>
                         <p>Usulan</p>
                     </a>
                 </li>
                 <li>
-                    <a href="<?= Url::to(['pelaksanaan/index']) ?>">
+                    <a href="<?= Url::to(['pelaksanaan/admin']) ?>">
                         <i class="ti-view-list-alt"></i>
                         <p>Pelaksanaan</p>
                     </a>
@@ -72,7 +73,7 @@ CustomAsset::register($this);
                     </a>
                 </li>
                 <li>
-                    <a href="<?= Url::to(['pengguna/index']) ?>">
+                    <a href="<?= Url::to(['user/index']) ?>">
                         <i class="ti-user"></i>
                         <p>Pengguna</p>
                     </a>
@@ -96,25 +97,25 @@ CustomAsset::register($this);
                     </a>
                 </li>
                 <li>
-                    <a href="kabkota">
+                    <a href="<?= Url::to(['kabkota/index']) ?>">
                         <i class="ti-map"></i>
                         <p>Kabupaten/Kota</p>
                     </a>
                 </li>
                 <li>
-                    <a href="kec">
+                    <a href="<?= Url::to(['kec/index']) ?>">
                         <i class="ti-map"></i>
                         <p>Kecamatan</p>
                     </a>
                 </li>
                 <li>
-                    <a href="keldesa">
+                    <a href="<?= Url::to(['keldesa/index']) ?>">
                         <i class="ti-map"></i>
                         <p>Kelurahan/Desa</p>
                     </a>
                 </li>
                 <li>
-                    <a href="site/logout">
+                    <a href="<?= Url::to(['site/logout']) ?>">
                         <i class="ti-power-off"></i>
                         <p>Keluar</p>
                     </a>

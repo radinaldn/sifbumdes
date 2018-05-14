@@ -11,6 +11,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use app\models\Kategori;
 
 /**
  * PelaksanaanController implements the CRUD actions for Pelaksanaan model.
@@ -40,8 +41,11 @@ class PelaksanaanController extends Controller
     {
         $searchModel = new PelaksanaanSearch();
 
-
-        $query = Pelaksanaan::find()->where(['id_kategori' => Yii::$app->user->identity->id_kategori])->orderBy(['id_pelaksanaan'=>SORT_DESC]);
+        if (Yii::$app->user->identity->id_kategori>0){
+            $query = Pelaksanaan::find()->where(['id_kategori' => Yii::$app->user->identity->id_kategori])->orderBy(['id_pelaksanaan'=>SORT_DESC]);
+        } else if (Yii::$app->user->identity->id_kategori == -1){
+            $query = Pelaksanaan::find()->orderBy(['id_pelaksanaan'=>SORT_DESC]);
+        }
         //$query = Usulan::find()->all();
         //$query = Usulan::find()->joinWith('tbPelaksanaan')->all();
 
@@ -54,6 +58,19 @@ class PelaksanaanController extends Controller
         return $this->render('index', [
             //'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+
+        ]);
+    }
+
+    public function actionAdmin()
+    {
+        $searchModel = new PelaksanaanSearch();
+
+        $kategoris = Kategori::find()->where(["not in", "id_kategori", [-1]])->all();
+
+        return $this->render('admin', [
+            //'searchModel' => $searchModel,
+            'kategoris'=>$kategoris,
 
         ]);
     }
@@ -153,10 +170,16 @@ class PelaksanaanController extends Controller
     public function actionGaleriBukti(){
         // action galeri justifikasi
 
-        $model = Pelaksanaan::find()
-            ->where(['id_kategori'=>Yii::$app->user->identity->id_kategori])
-            ->orderBy(["id_pelaksanaan" => SORT_DESC])
-            ->all();
+        if (Yii::$app->user->identity->id_kategori > 0){
+            $model = Pelaksanaan::find()
+                ->where(['id_kategori'=>Yii::$app->user->identity->id_kategori])
+                ->orderBy(["id_pelaksanaan" => SORT_DESC])
+                ->all();
+        } else if (Yii::$app->user->identity->id_kategori == -1){
+            $model = Pelaksanaan::find()
+                ->orderBy(["id_pelaksanaan" => SORT_DESC])
+                ->all();
+        }
 
         return $this->render('galeri-bukti', [
             'model' => $model,
