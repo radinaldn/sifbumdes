@@ -3,7 +3,6 @@
 namespace app\controllers;
 
 use Yii;
-use yii\filters\AccessControl;
 use app\models\User;
 use app\models\UserSearch;
 use yii\web\Controller;
@@ -25,22 +24,6 @@ class UserController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
-                ],
-            ],
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['index', 'create', 'update', 'delete','view'],
-                'rules' => [
-                    [
-                        'actions' => ['index', 'create', 'update', 'delete'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                    [
-                        'actions' => ['view'],
-                        'allow' => true,
-                        'roles' => ['?'],
-                    ],
                 ],
             ],
         ];
@@ -81,6 +64,7 @@ class UserController extends Controller
     public function actionCreate()
     {
         $model = new User();
+
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->nip]);

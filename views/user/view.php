@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\User */
@@ -12,6 +13,9 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-view">
 
+    <a href="<?php
+        echo Url::to(['user/index']);
+    ?>"><button class="btn btn-success"><i class="ti-back-left"></i> Kembali</button></a>
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
@@ -36,6 +40,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'alamat:ntext',
             'email:email',
             'hp',
+//            'authKey',
+//            'accessToken',
+//            'role',
         ],
     ]) ?>
 

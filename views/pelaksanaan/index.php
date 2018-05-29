@@ -14,7 +14,18 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pelaksanaan-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><i class="ti-view-list"></i> <?= Html::encode($this->title) ?></h1>
+    <form action="cetak" method="get">
+        <div class="col-md-3"><input type="date" name="dari" class="form-control"></div>
+        <div class="col-md-1"><p>To</p></div>
+        <div class="col-md-3">
+            <input type="date" name="ke" class="form-control">
+        </div>
+
+        <button class="btn btn-success" type="submit"><i class="ti-printer"></i> Cetak</button>
+    </form>
+    <div class="clearfix"></div>
+    <br>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>

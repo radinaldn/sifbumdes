@@ -9,6 +9,7 @@ use kartik\file\FileInput;
 use kartik\depdrop\DepDrop;
 use app\models\Kabkota;
 use yii\helpers\Url;
+use app\models\Kategori;
 
 
 
@@ -24,7 +25,12 @@ use yii\helpers\Url;
 
     <?php
     if (Yii::$app->user->identity->id_kategori == -1) {
-        echo $form->field($model, 'id_kategori')->textInput();
+        echo $form->field($model, 'id_kategori')->dropDownList(
+        ArrayHelper::map(Kategori::find()
+            ->where(['not in','id_kategori','-1'])
+            ->all(), 'id_kategori', 'nama'),
+        ['prompt'=>'Pilih kategori']
+    );
     }?>
 
     <?= $form->field($model, 'urusan')->textInput(['maxlength' => true]) ?>

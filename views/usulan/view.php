@@ -13,7 +13,13 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="usulan-view">
 
-    <a href="<?= Url::to(['usulan/index']) ?>"><button class="btn btn-success"><i class="ti-back-left"></i> Kembali</button></a>
+    <a href="<?php
+    if (Yii::$app->user->identity->id_kategori == '-1') {
+        echo Url::to(['usulan/admin']);
+    } else {
+        echo Url::to(['usulan/index']);
+    }
+    ?>"><button class="btn btn-success"><i class="ti-back-left"></i> Kembali</button></a>
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>

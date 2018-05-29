@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Kategori */
@@ -12,6 +13,8 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="kategori-view">
 
+    <a href="<?= Url::to(['kategori/index']);
+    ?>"><button class="btn btn-success"><i class="ti-back-left"></i> Kembali</button></a>
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>

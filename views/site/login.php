@@ -19,7 +19,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="header">
 
 <div class="site-login">
-    <h1 class="title"><?= Html::encode($this->title) ?></h1>
+    <h1 class="title">
+        <img  height="50%" src="<?= Yii::$app->getHomeUrl() ?>../extensions/pdf/logo/pekanbaru_logo_100px.png" class="img-circle">
+        <?= Html::encode($this->title) ?></h1>
 
 </div>
 
@@ -42,11 +44,9 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
 
                         <div class="form-group">
-                            <div class="col-md-12">
+                            <div class="col-md-10">
 
         <?= $form->field($model, 'username')->textInput(['autofocus' => true, 'class'=>'form-control border-input']) ?>
-                        </div>
-                        </div>
 
         <?= $form->field($model, 'password')->passwordInput(['class'=>'form-control border-input']) ?>
 
@@ -56,7 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <div class="form-group">
             <div class="col-lg-offset-1 col-lg-11">
-                <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                <?= Html::submitButton('Login', ['class' => 'btn btn-primary col-md-3', 'name' => 'login-button']) ?>
             </div>
         </div>
 

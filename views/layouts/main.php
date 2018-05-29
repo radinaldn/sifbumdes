@@ -41,17 +41,95 @@ CustomAsset::register($this);
         <div class="sidebar-wrapper">
             <div class="logo">
                 <a href="#" class="simple-text">
+                    <img  height="50" src="<?= Yii::$app->getHomeUrl() ?>../extensions/pdf/logo/pekanbaru_logo_100px.png" class="img-rounded">
                     <?= Yii::$app->name ?>
                 </a>
             </div>
 
+            <!--            // if admin-->
             <?php if(Yii::$app->user->identity->id_kategori == -1) { ?>
-            <ul class="nav">
-                <li class="active">
+                <ul class="nav">
+                    <li class="active">
+                        <a href="<?= Url::to(['home/index']) ?>">
+                            <i class="ti-panel"></i>
+                            <p>Halaman Utama</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?= Url::to(['usulan/admin']) ?>">
+                            <i class="ti-pencil"></i>
+                            <p>Usulan</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?= Url::to(['pelaksanaan/admin']) ?>">
+                            <i class="ti-view-list-alt"></i>
+                            <p>Pelaksanaan</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?= Url::to(['kategori/index']) ?>">
+                            <i class="ti-text"></i>
+                            <p>Kategori</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?= Url::to(['user/index']) ?>">
+                            <i class="ti-user"></i>
+                            <p>Pengguna</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?= Url::to(['usulan/galeri-renja']) ?>">
+                            <i class="ti-image"></i>
+                            <p>Galeri Renja</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?= Url::to(['usulan/galeri-justifikasi']) ?>">
+                            <i class="ti-image"></i>
+                            <p>Galeri Justifikasi</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?= Url::to(['pelaksanaan/galeri-bukti']) ?>">
+                            <i class="ti-image"></i>
+                            <p>Galeri Bukti</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?= Url::to(['kabkota/index']) ?>">
+                            <i class="ti-map"></i>
+                            <p>Kabupaten/Kota</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?= Url::to(['kec/index']) ?>">
+                            <i class="ti-map"></i>
+                            <p>Kecamatan</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?= Url::to(['keldesa/index']) ?>">
+                            <i class="ti-map"></i>
+                            <p>Kelurahan/Desa</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?= Url::to(['site/logout']) ?>">
+                            <i class="ti-power-off"></i>
+                            <p>Keluar</p>
+                        </a>
+                    </li>
+                </ul>
+            <?php } else { ?>
+                <?php if(Yii::$app->user->identity->id_kategori > 0) ?>
+                    <ul class="nav">
+                    <li class="active">
                     <a href="<?= Url::to(['home/index']) ?>">
-                        <i class="ti-panel"></i>
-                        <p>Halaman Utama</p>
-                    </a>
+                    <i class="ti-panel"></i>
+                    <p>Halaman Utama</p>
+                </a>
                 </li>
                 <li>
                     <a href="<?= Url::to(['usulan/index']) ?>">
@@ -63,18 +141,6 @@ CustomAsset::register($this);
                     <a href="<?= Url::to(['pelaksanaan/index']) ?>">
                         <i class="ti-view-list-alt"></i>
                         <p>Pelaksanaan</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="<?= Url::to(['kategori/index']) ?>">
-                        <i class="ti-text"></i>
-                        <p>Kategori</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="<?= Url::to(['pengguna/index']) ?>">
-                        <i class="ti-user"></i>
-                        <p>Pengguna</p>
                     </a>
                 </li>
                 <li>
@@ -96,76 +162,12 @@ CustomAsset::register($this);
                     </a>
                 </li>
                 <li>
-                    <a href="kabkota">
-                        <i class="ti-map"></i>
-                        <p>Kabupaten/Kota</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="kec">
-                        <i class="ti-map"></i>
-                        <p>Kecamatan</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="keldesa">
-                        <i class="ti-map"></i>
-                        <p>Kelurahan/Desa</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="site/logout">
+                    <a href="<?= Url::to(['site/logout']) ?>">
                         <i class="ti-power-off"></i>
                         <p>Keluar</p>
                     </a>
                 </li>
-            </ul>
-            <?php } else { ?>
-                <?php if(Yii::$app->user->identity->id_kategori > 0) ?>
-                            <ul class="nav">
-                                <li class="active">
-                                    <a href="<?= Url::to(['home/index']) ?>">
-                                        <i class="ti-panel"></i>
-                                        <p>Halaman Utama</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="<?= Url::to(['usulan/index']) ?>">
-                                        <i class="ti-pencil"></i>
-                                        <p>Usulan</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="<?= Url::to(['pelaksanaan/index']) ?>">
-                                        <i class="ti-view-list-alt"></i>
-                                        <p>Pelaksanaan</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="<?= Url::to(['usulan/galeri-renja']) ?>">
-                                        <i class="ti-image"></i>
-                                        <p>Galeri Renja</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="<?= Url::to(['usulan/galeri-justifikasi']) ?>">
-                                        <i class="ti-image"></i>
-                                        <p>Galeri Justifikasi</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="<?= Url::to(['pelaksanaan/galeri-bukti']) ?>">
-                                        <i class="ti-image"></i>
-                                        <p>Galeri Bukti</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="<?= Url::to(['site/logout']) ?>">
-                                        <i class="ti-power-off"></i>
-                                        <p>Keluar</p>
-                                    </a>
-                                </li>
-                            </ul>
+                </ul>
             <?php } ?>
         </div>
     </div>
@@ -184,27 +186,27 @@ CustomAsset::register($this);
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
-<!--                        <li>-->
-<!--                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">-->
-<!--                                <i class="ti-panel"></i>-->
-<!--                                <p>Stats</p>-->
-<!--                            </a>-->
-<!--                        </li>-->
-<!--                        <li class="dropdown">-->
-<!--                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">-->
-<!--                                <i class="ti-bell"></i>-->
-<!--                                <p class="notification">5</p>-->
-<!--                                <p>Notifikasi</p>-->
-<!--                                <b class="caret"></b>-->
-<!--                            </a>-->
-<!--                            <ul class="dropdown-menu">-->
-<!--                                <li><a href="#">Notification 1</a></li>-->
-<!--                                <li><a href="#">Notification 2</a></li>-->
-<!--                                <li><a href="#">Notification 3</a></li>-->
-<!--                                <li><a href="#">Notification 4</a></li>-->
-<!--                                <li><a href="#">Another notification</a></li>-->
-<!--                            </ul>-->
-<!--                        </li>-->
+                        <!--                        <li>-->
+                        <!--                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">-->
+                        <!--                                <i class="ti-panel"></i>-->
+                        <!--                                <p>Stats</p>-->
+                        <!--                            </a>-->
+                        <!--                        </li>-->
+                        <!--                        <li class="dropdown">-->
+                        <!--                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">-->
+                        <!--                                <i class="ti-bell"></i>-->
+                        <!--                                <p class="notification">5</p>-->
+                        <!--                                <p>Notifikasi</p>-->
+                        <!--                                <b class="caret"></b>-->
+                        <!--                            </a>-->
+                        <!--                            <ul class="dropdown-menu">-->
+                        <!--                                <li><a href="#">Notification 1</a></li>-->
+                        <!--                                <li><a href="#">Notification 2</a></li>-->
+                        <!--                                <li><a href="#">Notification 3</a></li>-->
+                        <!--                                <li><a href="#">Notification 4</a></li>-->
+                        <!--                                <li><a href="#">Another notification</a></li>-->
+                        <!--                            </ul>-->
+                        <!--                        </li>-->
                         <li>
                             <a href="<?= Url::to(['site/logout']) ?>">
                                 <i class="ti-power-off"></i>
@@ -221,7 +223,7 @@ CustomAsset::register($this);
         <div class="content">
             <div class="container-fluid">
 
-<?= $content ?>
+                <?= $content ?>
             </div>
         </div>
 
@@ -231,8 +233,8 @@ CustomAsset::register($this);
                     <ul>
 
                         <li>
-                            <a href="http://www.creative-tim.com">
-                                Radinaldn
+                            <a href="#">
+                                Rizki Febri Maida
                             </a>
                         </li>
                         <li>
@@ -248,12 +250,12 @@ CustomAsset::register($this);
                     </ul>
                 </nav>
                 <div class="copyright pull-right">
-                    <p>&copy; radinaldn <?= date('Y') ?></p>
+                    <p>&copy; PMD <?= date('Y') ?></p>
                 </div>
             </div>
         </footer>
 
-<?php $this->endBody() ?>
+        <?php $this->endBody() ?>
 </body>
 </html>
 <script type="text/javascript">

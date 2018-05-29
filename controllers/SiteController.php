@@ -92,7 +92,7 @@ class SiteController extends Controller
             return $this->goLogin();
         }
 
-        return $this->render('index');
+        return $this->redirect(['home/index']);
 
     }
 

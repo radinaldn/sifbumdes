@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 13, 2018 at 02:20 AM
+-- Generation Time: May 30, 2018 at 02:56 AM
 -- Server version: 10.1.30-MariaDB-0ubuntu0.17.10.1
 -- PHP Version: 7.1.15-0ubuntu0.17.10.1
 
@@ -243,7 +243,9 @@ INSERT INTO `tb_kategori` (`id_kategori`, `nama`) VALUES
 (1, 'Bidang Pemberdayaan Masyarakat'),
 (2, 'Bidang Bina Pemerintahan Desa dan Kelurahan'),
 (3, 'Bidang Fasilitas Keuangan Aset dan Pendamping'),
-(4, 'Bidang Usaha Ekonomi Masyarakat dan TTG');
+(4, 'Bidang Usaha Ekonomi Masyarakat dan TTG'),
+(5, 'hohoho'),
+(6, 'hahihu');
 
 -- --------------------------------------------------------
 
@@ -2354,11 +2356,19 @@ INSERT INTO `tb_pelaksanaan` (`id_pelaksanaan`, `id_kategori`, `bukti`) VALUES
 (22, 4, 'bukti1.jpg'),
 (23, 1, 'qrcode.jpeg'),
 (26, 4, NULL),
-(27, 4, 'ngepad_logo.png'),
+(27, 4, 'Screenshot from 2018-05-26 13-31-02.png'),
 (28, 4, 'biru_cover.jpg'),
 (29, 4, 'file_1.jpg'),
 (30, 4, NULL),
-(31, 4, 'smartphone-1557796_640.png');
+(31, 4, 'photo_2017-11-28_09-30-51.jpg'),
+(32, 4, 'file_1.jpg'),
+(33, 4, 'logo_ar.png'),
+(34, 4, 'photo_2017-11-28_09-30-53 (2).jpg'),
+(35, -1, 'photo_2018-02-12_12-24-45.jpg'),
+(36, -1, 'Screenshot-2018-5-10 Hero.png'),
+(37, -1, 'photo_2018-05-28_13-13-49.jpg'),
+(38, -1, 'logo-lpm.png'),
+(39, 4, 'photo_2018-05-28_13-13-55.jpg');
 
 -- --------------------------------------------------------
 
@@ -2385,6 +2395,7 @@ CREATE TABLE `tb_user` (
 --
 
 INSERT INTO `tb_user` (`nip`, `password`, `id_kategori`, `nama`, `jenis_kelamin`, `alamat`, `email`, `hp`, `authKey`, `accessToken`, `role`) VALUES
+(1145, '1145', 2, 'nomor dua', 'L', 'Jalan jalan', 'nomordua@mail.com', '0762', '', '', ''),
 (11451101637, '12345678', 4, 'Radinal Dwiki N', 'L', 'Jl. Mustamindo', 'radinal@sifbumdes.com', '08130000000', 'yosef-123456', 'y05ef12mu12y4', 'Admin'),
 (11451105151, '12345678', -1, 'administrator', 'L', 'Jl. Hr Subrantas', 'admin@mail.com', '081300000000', '', '', ''),
 (199404032008012022, '12345678', 1, 'pegawai sistem', 'L', 'Jl. Ahmad yani np 170', 'pegawaisistem@mail.com', '081208129876', '', '', '');
@@ -2400,8 +2411,6 @@ CREATE TABLE `tb_usulan` (
   `id_kategori` int(11) NOT NULL,
   `urusan` varchar(255) NOT NULL,
   `indikator` varchar(255) NOT NULL,
-  `id_kabkota` int(11) DEFAULT NULL,
-  `id_kec` int(11) DEFAULT NULL,
   `id_keldesa` int(11) NOT NULL,
   `target` varchar(100) NOT NULL,
   `kebutuhan` varchar(100) NOT NULL,
@@ -2416,22 +2425,30 @@ CREATE TABLE `tb_usulan` (
 -- Dumping data for table `tb_usulan`
 --
 
-INSERT INTO `tb_usulan` (`id_usulan`, `id_kategori`, `urusan`, `indikator`, `id_kabkota`, `id_kec`, `id_keldesa`, `target`, `kebutuhan`, `sumber`, `justifikasi`, `renja`, `status`, `tanggal`) VALUES
-(14, 4, 'Halal bi halal', 'mantao', NULL, NULL, 1471010007, '100', 'makanan', 'tak terbatas', '', '', 'disetujui', '2018-06-10'),
-(15, 4, 'KAKA', 'KAAK', NULL, NULL, 1401010005, 'ASD', 'ASD', 'ASD', 'KAKA', 'AKAK', 'disetujui', '2018-05-08'),
-(16, 4, 'as dk', 'ka skd k', NULL, NULL, 1471010007, 'asd', 'asd', 'asd', 'as', 'asd', 'disetujui', '2018-04-04'),
-(17, 4, 'dian bagong', 'asd', NULL, NULL, 1401010008, '100', 'mantap', 'bebas', 'asd', 'asd', 'disetujui', '2018-05-10'),
-(21, 4, 'testing', 'testing', NULL, NULL, 1471010007, 'ajsd', 'asd', 'asd', 'asd', 'asd', 'disetujui', '2018-05-17'),
-(22, 4, 'main main aja', '10', NULL, NULL, 1401010005, '100', 'makanan', 'bebas', 'jastis lig', 'reja', 'disetujui', '2018-05-01'),
-(23, 1, 'Tes BPM', 'kholis', NULL, NULL, 1401010006, '100', 'minum', 'resors', 'jastis lig', 'haha', 'disetujui', '2018-06-08'),
-(24, 1, 'banyak urusan', 'indi', NULL, NULL, 1401010008, '1000', 'req', 'resors', 'jastis lig', 'jaha', 'disetujui', '2018-05-10'),
-(25, 4, 'test', 'tes', NULL, NULL, 1401010005, 'asd', 'asd', 'asd', 'asd', 'asd', 'disetujui', '2018-06-06'),
-(26, 4, 'asnkdj', 'anskjdn', NULL, NULL, 1409014002, 'aksdn', 'askjdn', 'asjkdn', 'asdjkn', 'askjdn', 'disetujui', '2018-05-15'),
-(27, 4, 'pasti bisa', 'yakin', NULL, NULL, 1401010006, 'suwer', 'ayolah', 'kamu pasti bisa', 'ntap tu', 'semangat', 'disetujui', '2018-05-16'),
-(28, 4, 'aksndkjn', 'naskjdnkj', NULL, NULL, 1401010007, 'aksdkjasdn', 'knajksndkj', 'nkjasndkj', 'nkjansdkjnkj', 'nkjasndjkn', 'disetujui', '2018-05-16'),
-(29, 4, 'cari tempat makan', '100', NULL, NULL, 1401010008, 'kenyang', 'uang', 'dompet', 'Java-certificate-UC-1B005WZ9.pdf', 'Java-certificate-UC-1B005WZ9.pdf', 'disetujui', '2018-05-02'),
-(30, 4, 'Pulang kampung', 'gowes', NULL, NULL, 1401010018, 'selamat', 'mobil', 'rental', NULL, NULL, 'disetujui', '2018-05-16'),
-(31, 4, 'testes', 'tutsuts', NULL, NULL, 1401010008, '100', 'mbel', 'sumue', 'surat (1).docx', 'surat (1).docx', 'disetujui', '2018-05-30');
+INSERT INTO `tb_usulan` (`id_usulan`, `id_kategori`, `urusan`, `indikator`, `id_keldesa`, `target`, `kebutuhan`, `sumber`, `justifikasi`, `renja`, `status`, `tanggal`) VALUES
+(14, 4, 'Halal bi halal', 'mantao', 1471010007, '100', 'makanan', 'tak terbatas', '', '', 'disetujui', '2018-06-10'),
+(15, 4, 'KAKA', 'KAAK', 1401010005, 'ASD', 'ASD', 'ASD', 'KAKA', 'AKAK', 'disetujui', '2018-05-08'),
+(16, 4, 'as dk', 'ka skd k', 1471010007, 'asd', 'asd', 'asd', 'as', 'asd', 'disetujui', '2018-04-04'),
+(17, 4, 'dian bagong', 'asd', 1401010008, '100', 'mantap', 'bebas', 'asd', 'asd', 'disetujui', '2018-05-10'),
+(21, 4, 'testing', 'testing', 1471010007, 'ajsd', 'asd', 'asd', 'asd', 'asd', 'disetujui', '2018-05-17'),
+(22, 4, 'main main aja', '10', 1401010005, '100', 'makanan', 'bebas', 'jastis lig', 'reja', 'disetujui', '2018-05-01'),
+(23, 1, 'Tes BPM', 'kholis', 1401010006, '100', 'minum', 'resors', 'jastis lig', 'haha', 'disetujui', '2018-06-08'),
+(24, 1, 'banyak urusan', 'indi', 1401010008, '1000', 'req', 'resors', 'jastis lig', 'jaha', 'disetujui', '2018-05-10'),
+(25, 4, 'test', 'tes', 1401010005, 'asd', 'asd', 'asd', 'asd', 'asd', 'disetujui', '2018-06-06'),
+(26, 4, 'asnkdj', 'anskjdn', 1409014002, 'aksdn', 'askjdn', 'asjkdn', 'asdjkn', 'askjdn', 'disetujui', '2018-05-15'),
+(27, 4, 'pasti bisa', 'yakin', 1401010006, 'suwer', 'ayolah', 'kamu pasti bisa', 'ntap tu', 'semangat', 'disetujui', '2018-05-16'),
+(28, 4, 'aksndkjn', 'naskjdnkj', 1401010007, 'aksdkjasdn', 'knajksndkj', 'nkjasndkj', 'nkjansdkjnkj', 'nkjasndjkn', 'disetujui', '2018-05-16'),
+(29, 4, 'cari tempat makan', '100', 1401010008, 'kenyang', 'uang', 'dompet', 'Java-certificate-UC-1B005WZ9.pdf', 'Java-certificate-UC-1B005WZ9.pdf', 'disetujui', '2018-05-02'),
+(30, 4, 'Pulang kampung', 'gowes', 1401010018, 'selamat', 'mobil', 'rental', NULL, NULL, 'disetujui', '2018-05-16'),
+(31, 4, 'testes', 'tutsuts', 1401010008, '100', 'mbel', 'sumue', 'surat (1).docx', 'surat (1).docx', 'disetujui', '2018-05-30'),
+(32, 4, 'makan bersama', '100', 1401010008, 'menang', 'makan dan minum', 'dompet', 'surat (1).docx', 'surat (1).docx', 'disetujui', '2018-05-14'),
+(33, 4, 'ngoding sore', 'laptop', 1401011007, '100', 'listrik', 'pln', 'surat (1).docx', 'surat (1).docx', 'disetujui', '2018-05-17'),
+(34, 4, 'buat kodingan', '10', 1401011001, '100', 'makan', 'dompet', 'RadinalDwikiN_11451101637.docx', 'surat (1) (1).docx', 'disetujui', '2018-05-23'),
+(35, 4, 'coba oba', '1', 1401010008, 'asndj', 'asmdakd', 'asdmka', 'RadinalDwikiN_11451101637.docx', 'surat (1).docx', 'disetujui', '2018-05-31'),
+(36, 1, 'testing bpm', '100', 1401010018, 'mantap', 'makan', 'dompet', 'laporan kp fixxxxxx upload.docx', 'error.docx', 'disetujui', '2018-06-01'),
+(37, 2, 'Testing BPDK', 'mantap', 1401012006, 'tercapat', 'pitih', 'mantrap', 'error.docx', 'laporan kp fixxxxxx upload.docx', 'disetujui', '2018-05-02'),
+(38, 6, 'aksdkjn', 'jkansdkjn', 1401010008, 'askdn', 'kaksndkjn', 'kjnaskjdn', 'Screenshot-2018-5-10 Slim(3).png', 'Screenshot from 2018-05-19 11-34-41.png', 'disetujui', '2018-05-02'),
+(39, 4, 'anksdkj', 'kjasndjkn', 1406060030, 'kjansdjkn', 'kjnakjsndkj', 'nkjasndjk', 'laporan kp fixxxxxx upload.docx', 'error.docx', 'disetujui', '2018-05-29');
 
 -- --------------------------------------------------------
 
@@ -2630,7 +2647,7 @@ ALTER TABLE `tb_kabkota`
 -- AUTO_INCREMENT for table `tb_kategori`
 --
 ALTER TABLE `tb_kategori`
-  MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `tb_kec`
 --
@@ -2645,7 +2662,7 @@ ALTER TABLE `tb_keldesa`
 -- AUTO_INCREMENT for table `tb_usulan`
 --
 ALTER TABLE `tb_usulan`
-  MODIFY `id_usulan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id_usulan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 --
 -- AUTO_INCREMENT for table `upload`
 --

@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use yii\db\Query;
 use app\models\Kabkota;
 use Yii;
 use app\models\Usulan;
@@ -13,6 +14,8 @@ use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use yii\helpers\Json;
 use app\models\Kec;
+use kartik\mpdf\Pdf;
+use app\models\Kategori;
 
 /**
  * UsulanController implements the CRUD actions for Usulan model.
@@ -112,6 +115,13 @@ class UsulanController extends Controller
 
     public function actionAdmin(){
 
+        $kategoris = Kategori::find()->where(["not in", "id_kategori", [-1]])->all();
+
+        return $this->render('admin', [
+            // 'searchModel' => $searchModel,
+            //'dataProvider' => $dataProvider,
+            'kategoris' => $kategoris,
+        ]);
     }
 
     public function actionId_kec() {
@@ -181,10 +191,10 @@ class UsulanController extends Controller
         $model->renja = UploadedFile::getInstance($model, 'renja');
 
         if ($model->justifikasi != NULL) $data['Usulan']['justifikasi'] = $model->justifikasi;
-        if ($model->justifikasi == NULL) $data['Usulan']['justifikasi'] = null;
+        //if ($model->justifikasi == NULL) $data['Usulan']['justifikasi'] = null;
 
         if ($model->renja!= NULL) $data['Usulan']['renja'] = $model->renja;
-        if ($model->renja== NULL) $data['Usulan']['renja'] = null;
+        //if ($model->renja== NULL) $data['Usulan']['renja'] = null;
 
 
 
@@ -221,10 +231,16 @@ class UsulanController extends Controller
     public function actionGaleriRenja(){
         // action galeri justifikasi
 
-        $model = Usulan::find()
-            ->where(['id_kategori'=>Yii::$app->user->identity->id_kategori])
-            ->orderBy(["id_usulan" => SORT_DESC])
-            ->all();
+        if (Yii::$app->user->identity->id_kategori > 0){
+            $model = Usulan::find()
+                ->where(['id_kategori'=>Yii::$app->user->identity->id_kategori])
+                ->orderBy(["id_usulan" => SORT_DESC])
+                ->all();
+        } else if (Yii::$app->user->identity->id_kategori == -1){
+            $model = Usulan::find()
+                ->orderBy(["id_usulan" => SORT_DESC])
+                ->all();
+        }
 
         return $this->render('galeri-renja', [
             'model' => $model,
@@ -234,13 +250,50 @@ class UsulanController extends Controller
     public function actionGaleriJustifikasi(){
         // action galeri justifikasi
 
-        $model = Usulan::find()
-            ->where(['id_kategori'=>Yii::$app->user->identity->id_kategori])
-            ->orderBy(["id_usulan" => SORT_DESC])
-            ->all();
+        if (Yii::$app->user->identity->id_kategori > 0){
+            $model = Usulan::find()
+                ->where(['id_kategori'=>Yii::$app->user->identity->id_kategori])
+                ->orderBy(["id_usulan" => SORT_DESC])
+                ->all();
+        } else if (Yii::$app->user->identity->id_kategori == -1){
+            $model = Usulan::find()
+                ->orderBy(["id_usulan" => SORT_DESC])
+                ->all();
+        }
 
         return $this->render('galeri-justifikasi', [
             'model' => $model,
+        ]);
+    }
+
+
+
+    public function actionCetak($dari, $ke){
+
+//        $model= Usulan::find()
+//            ->joinWith('idKeldesa', false, 'INNER JOIN')
+//            ->where(['id_kategori' => Yii::$app->user->identity->id_kategori])
+//            ->orderBy(['id_usulan'=>SORT_DESC])
+//            ->all();
+
+        $query = new Query;
+        $query	->select(['tb_usulan.urusan', 'tb_usulan.target', 'tb_usulan.kebutuhan', 'tb_usulan.sumber','tb_usulan.tanggal', 'tb_usulan.status', 'tb_usulan.id_keldesa AS id_keldesa', 'tb_keldesa.nama as nama_keldesa'])
+            ->from('tb_usulan')
+            ->innerJoin('tb_keldesa', 'tb_keldesa.id_keldesa= tb_usulan.id_keldesa')
+            ->andWhere(['tb_usulan.id_kategori' => Yii::$app->user->identity->id_kategori, 'tb_usulan.status'=>'disetujui', ])
+            ->andWhere(['between', 'tb_usulan.tanggal', $dari, $ke ])
+            ->all();
+
+        $command = $query->createCommand();
+        $model = $command->queryAll();
+
+//    echo "<pre>";
+//    print_r($model);
+//    exit();
+
+         //get your HTML raw content without any layouts or scripts
+        return $this->renderPartial('_cetak', [
+            'model'=> $model,
         ]);
     }
 
